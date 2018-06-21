@@ -1,0 +1,4 @@
+<resources>
+    <string name="alertTitle">Alert</string>
+    <string name="close">Close</string>
+</resources>
