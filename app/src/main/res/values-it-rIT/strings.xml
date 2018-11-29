@@ -3,4 +3,6 @@
     <string name="app_name">SharedLibrary</string>
     <string name="alertTitle">Attenzione</string>
     <string name="close">Chiudi</string>
+    <string name="cannotDetectLocation">Spiacente, sembra che io non possa rilevare la tua posizione da questo dispositivo</string>
+    <string name="permissionDeniedAlertMessage">Questa app non può funzionare senza conoscere la tua posizione. Se ci ripensi, concedi l\'autorizzazione tramite il pannello Impostazioni del tuo dispositivo.</string>
 </resources>

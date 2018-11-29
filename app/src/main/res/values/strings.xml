@@ -1,4 +1,6 @@
 <resources>
     <string name="alertTitle">Alert</string>
     <string name="close">Close</string>
+    <string name="cannotDetectLocation">Sorry, looks like I cannot detect your location on this device</string>
+    <string name="permissionDeniedAlertMessage">This app can\'t work without knowing your location. If you change your mind, please grant the authorization through the Settings panel of your device.</string>
 </resources>
