@@ -1,6 +1,5 @@
 package org.honk.sharedlibrary.UI;
 
-import android.Manifest;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
@@ -16,13 +15,13 @@ import org.honk.sharedlibrary.UIHelper;
 
 public abstract class RequirementsCheckerActivity extends AppCompatActivity {
 
-    private static final int ACCESS_COARSE_LOCATION_CODE = 0;
+    private static final int PERMISSION_CODE = 0;
 
     private static final int REQUEST_LOCATION_SETTINGS_CHECK = 0;
 
-    public void checkRequirementsAndPermissions() {
+    public void checkRequirementsAndPermissions(String permission, String feature) {
         // Check requirements for location detection.
-        if (!LocationHelper.checkLocationSystemFeature(this)) {
+        if (!LocationHelper.checkLocationSystemFeature(this, feature)) {
             // The device does not support location detection.
             UIHelper.showAlert(this.getString(R.string.cannotDetectLocation), this);
         } else {
@@ -30,16 +29,16 @@ public abstract class RequirementsCheckerActivity extends AppCompatActivity {
                     this,
                     (locationSettingsResponse) -> {
                         // Requirements are met: checking user permissions.
-                        if (!LocationHelper.checkLocationPermission(this)) {
+                        if (!LocationHelper.checkLocationPermission(this, permission)) {
                             // The user has not given permissions to detect location.
-                            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_COARSE_LOCATION)) {
+                            if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
                                 // The user has denied permission: show an alert message.
                                 UIHelper.showAlert(this.getString(R.string.permissionDeniedAlertMessage), this, (dialog, id) -> {
                                     this.handlePermissionDeniedMessageClick();
                                 });
                             } else {
                                 // Request the permission.
-                                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, ACCESS_COARSE_LOCATION_CODE);
+                                ActivityCompat.requestPermissions(this, new String[]{permission}, PERMISSION_CODE);
                             }
                         }
                     },
@@ -74,7 +73,7 @@ public abstract class RequirementsCheckerActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
         switch (requestCode) {
-            case ACCESS_COARSE_LOCATION_CODE: {
+            case PERMISSION_CODE: {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length < 0 || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
                     // User denied permission to access location info.

@@ -41,13 +41,13 @@ public class LocationHelper {
         }
     }
 
-    public static Boolean checkLocationSystemFeature(Context context) {
+    public static Boolean checkLocationSystemFeature(Context context, String feature) {
         // Check whether the device supports accessing coarse location.
-        return context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_LOCATION_NETWORK);
+        return context.getPackageManager().hasSystemFeature(feature);
     }
 
-    public static Boolean checkLocationPermission(Context context) {
-        return ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+    public static Boolean checkLocationPermission(Context context, String permission) {
+        return ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED;
     }
 
     @SuppressLint("MissingPermission")
